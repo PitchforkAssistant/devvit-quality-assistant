@@ -16,7 +16,7 @@
     "@devvit/protos": "0.10.6",
     "@devvit/public-api": "0.10.6",
     "@devvit/shared-types": "0.10.6",
-    "devvit-helpers": "0.2.23"
+    "devvit-helpers": "0.2.24-next.1"
   },
   "devDependencies": {
     "@devvit/tsconfig": "0.10.6",

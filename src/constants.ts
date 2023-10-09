@@ -1,66 +1,176 @@
-// Keeping all of the labels, help texts, error messages, and default values in one place makes keeps main.ts cleaner and makes them easier to change.
-// It also opens up the possibility of internationalization in the future.
-
-export const LABELS = {
-    DICE_ROLL: "Dice Roll",
-    TOGGLE: "Toggle",
-    DROPDOWN_SELECT: "Dropdown",
-    MULTI_SELECT: "Multi-Select",
-    GROUP: "Group",
-    SHORT_TEXT: "String Input",
-    LONG_TEXT: "Paragraph Input",
-    MOD_ACTION: "Template Action (Mod)",
-    MEMBER_ACTION: "Template Action (Member)",
-    LOGGED_OUT_ACTION: "Template Action (Logged Out)",
-    GENERAL_POST_ACTION: "Template Action (Unspecified)",
-    FORM: "Custom Post Form",
-    FORM_ACCEPT: "Submit Custom Post",
-    FORM_CANCEL: "Cancel",
-    CUSTOM_POST_BUTTON: "Create a Custom Post",
-    CUSTOM_POST_TITLE: "Title",
+// Links
+export const LINKS = {
+    TIMEFORMAT: "https://date-fns.org/v2.30.0/docs/format",
 };
 
-export const HELP_TEXTS = {
-    DICE_ROLL: "This is an example number field, please enter a number between 1 and 6.",
-    TOGGLE: "Literally just an on or off switch.",
-    DROPDOWN_SELECT: "This is an example of a dropdown field, the user can select one of the predefined options.",
-    MULTI_SELECT: "This is an example of a multi-select field, the user can select multiple of the predefined options.",
-    GROUP: "This is an example of a group of fields, here we're just showing a string and a paragraph field.",
-    SHORT_TEXT: "This is just a field for text, but it's tiny.",
-    LONG_TEXT: "This is just a field for text, but it's a bigger box.",
-    GENERAL_POST_ACTION: "This is an example of a menu item without a forUserType property, it will show up for all users.",
-    SHOW_FORM_ACTION: "This is an example of a menu item that shows a form.",
-    FORM: "This is an example of a form, it has a custom submit and cancel button. The fields are the same as the app settings, but that's just because I was too lazy to define two separate forms.",
-    CUSTOM_POST_BUTTON: "This is a of a menu item that submits a custom post example.",
-    CUSTOM_POST_TITLE: "This is used as the title of the custom post.",
+// Field labels
+export const LABELS = {
+    VOTE_GROUP: "Vote Settings",
+    VOTE_COMMENT: "Vote Comment",
+    VOTE_THRESHOLD: "Action Threshold",
+    VOTE_ACTIONS: "Vote Actions",
+    IGNORE_OPTIONS: "Ignore Options",
+
+    VOTE_MODE: "Vote Mode",
+    VOTE_REPLY_GROUP: "Vote Reply Settings",
+    VOTE_REPLY_OPTIONS: "Reply Parsing Options",
+    VOTE_REPLY_UPVOTE: "Upvote Keyword",
+    VOTE_REPLY_DOWNVOTE: "Downvote Keyword",
+
+    ACTION_GROUP: "Action Settings",
+    ACTION_REASON_ID: "Removal Reason ID",
+    ACTION_COMMENT: "Comment",
+    ACTION_REPORT: "Report Text",
+
+    ACTION_POST_FLAIR_GROUP: "Post Flair",
+    ACTION_POST_FLAIR_TEXT: "Flair Text",
+    ACTION_POST_FLAIR_CSS: "Flair CSS Class",
+    ACTION_POST_FLAIR_ID: "Flair Template ID",
+
+    ACTION_AUTHOR_FLAIR_GROUP: "Author Flair",
+    ACTION_AUTHOR_FLAIR_TEXT: "Flair Text",
+    ACTION_AUTHOR_FLAIR_CSS: "Flair CSS Class",
+    ACTION_AUTHOR_FLAIR_ID: "Flair Template ID",
+
+    CUSTOM_DATE_GROUP: "Custom Date Placeholder Options",
+    CUSTOM_DATE_TEMPLATE: "Date Format Template",
+    CUSTOM_TIMEZONE: "Timezone",
+    CUSTOM_LOCALE: "Locale",
+};
+
+// Help labels
+export const HELP_TEXT = {
+    VOTE_GROUP: "These configure how the voting system works.",
+    VOTE_COMMENT: "This comment is left on every post that is created in the subreddit. It should instruct users to upvote the comment if they think the post fits the subreddit, and downvote if they think it doesn't. Supports placeholders.",
+    VOTE_THRESHOLD: "This is the score that must fall below for the post to be automatically removed.",
+    VOTE_ACTIONS: "These actions are performed on posts that fall below the specified vote threshold.",
+    IGNORE_OPTIONS: "This setting allows you to ignore certain user or post types. Please note that if you ignore both post types, the bot will do nothing.",
+
+    VOTE_MODE: "This setting determines how the voting system works, it can either be based on the score of the bot's comment or replies to the bots comment.",
+    VOTE_REPLY_GROUP: "These settings are only used if your vote mode is set to replies.",
+    VOTE_REPLY_OPTIONS: "This setting determines whether the bot only considers replies that only contain the keyword, or if it also considers replies that contain the keyword among other text.",
+    VOTE_REPLY_UPVOTE: "This is the keyword that the bot uses to determine if a reply is an upvote.",
+    VOTE_REPLY_DOWNVOTE: "This is the keyword that the bot uses to determine if a reply is an downvote.",
+
+    ACTION_GROUP: "These settings let you ignore certain users and configure a removal reason.",
+    ACTION_REASON_ID: "If you have a native removal reason you'd wish to apply to removed posts, you can enter its ID here. Please note that Devvit doesn't currently send the corresponding removal reason to the user, so this is only visible to mods.",
+    ACTION_COMMENT: "This is left as a stickied comment on posts that are removed. Leave blank to remove silently. Supports placeholders.",
+    ACTION_REPORT: "This is used as the report reason when performing a report action. Supports placeholders.",
+
+    ACTION_POST_FLAIR_GROUP: "These settings are used to when applying a flair to post. If the post flair action is enabled and all these fields are left blank, the post flair will be cleared.",
+    ACTION_POST_FLAIR_TEXT: "Supports placeholders.",
+
+    ACTION_AUTHOR_FLAIR_GROUP: "These settings are used to when applying a user flair to the author. If the author flair action is enabled and all these fields are left blank, the author's flair will be cleared.",
+    ACTION_AUTHOR_FLAIR_TEXT: "Supports placeholders.",
+
+    CUSTOM_DATE_GROUP: "These settings let you customize the {{time_custom}} and similar placeholders. If you don't use a custom time placeholder anywhere, you can completely ignore these settings.",
+    CUSTOM_DATE_TEMPLATE: `This is used by date-fns to format {{time_custom}}. See: ${LINKS.TIMEFORMAT}`,
+    CUSTOM_TIMEZONE: "Timezone used for {{time_custom}}, must be a UTC offset or TZ identifier (e.g. UTC, +02:00, America/New_York, etc).",
+    CUSTOM_LOCALE: "Locale used by {{time_custom}} (e.g. enUS, de, etc).",
+};
+
+// Default values
+export const DEFAULTS = {
+    VOTE_COMMENT: "Upvote this comment if you think this post fits /r/{{subreddit}} and downvote this comment if you think it does not. If this comment reaches {{vote_threshold}}, this post will be automatically removed.",
+    VOTE_THRESHOLD: -5,
+    VOTE_ACTIONS: ["thresholdRemove", "thresholdLock", "thresholdPostFlair", "thresholdComment", "thresholdReportComment", "thresholdSetRemovalReason"],
+    IGNORE_OPTIONS: ["ignoreModerators", "ignoreContributors", "ignoreAdmins"],
+
+    VOTE_MODE: ["modeScore"],
+    VOTE_REPLY_OPTIONS: ["onlyKeyword"],
+    VOTE_REPLY_UPVOTE: "!upvote",
+    VOTE_REPLY_DOWNVOTE: "!downvote",
+
+    ACTION_COMMENT: "Hi /u/{{author}}! Thanks for posting to /r/{{subreddit}}. Unfortunately, [your {{kind}}]({{permalink}}) was removed for the following reason:\n\n* Other users voted that your post did not meet subreddit standards.\n\nIf you have questions about this, please [contact our mods via moderator mail](https://www.reddit.com/message/compose?to=/r/{{subreddit}}) rather than replying here. Thank you!",
+    ACTION_REPORT: "Quality Vote Below Threshold",
+
+    CUSTOM_DATE_TEMPLATE: "yyyy-MM-dd hh-mm-ss",
+    CUSTOM_TIMEZONE: "UTC",
+    CUSTOM_LOCALE: "enUS",
 };
 
 export const ERRORS = {
-    DICE_ROLL_NAN: "Your dice roll must be a number.",
-    DICE_ROLL_OUT_OF_RANGE: "Your dice roll must be between 1 and 6.",
-    DICE_ROLL_NOT_INTEGER: "Your dice roll must be an integer.",
-    DICE_ROLL_UNLUCKY: "Your number does not match the random number chosen by a fair dice roll. (Hint: https://xkcd.com/221/)",
-    CUSTOM_POST_FAILED: "Failed to submit custom post.",
-};
-
-export const DEFAULTS = {
-    DICE_ROLL: 6,
-    TOGGLE: false,
-    SELECT: ["Label 1", "value1"],
-    CUSTOM_POST_TITLE: "Custom Post",
 };
 
 export const OPTIONS = {
-    SELECT: [
-        {label: "Label 0", value: "value0"},
-        {label: "Label 1", value: "value1"},
-        {label: "Label 2", value: "value2"},
-        {label: "Label 3", value: "value3"},
-        {label: "Label 4", value: "value4"},
-        {label: "Label 5", value: "value5"},
-        {label: "Label 6", value: "value6"},
-        {label: "Label 7", value: "value7"},
-        {label: "Label 8", value: "value8"},
-        {label: "Label 9", value: "value9"},
+    VOTE_ACTIONS: [
+        {
+            label: "Remove Post",
+            value: "thresholdRemove",
+        },
+        {
+            label: "Lock Post",
+            value: "thresholdLock",
+        },
+        {
+            label: "Remove Vote Comment",
+            value: "thresholdRemoveVoteComment",
+        },
+        {
+            label: "Set Removal Reason",
+            value: "thresholdSetRemovalReason",
+        },
+        {
+            label: "Add Comment",
+            value: "thresholdComment",
+        },
+        {
+            label: "Report Post",
+            value: "thresholdReportPost",
+        },
+        {
+            label: "Report Comment",
+            value: "thresholdReportComment",
+        },
+        {
+            label: "Set Post Flair",
+            value: "thresholdPostFlair",
+        },
+        {
+            label: "Set Author Flair",
+            value: "thresholdAuthorFlair",
+        },
+    ],
+    VOTE_MODE: [
+        {
+            label: "Score",
+            value: "modeScore",
+        },
+        {
+            label: "Replies",
+            value: "modeReplies",
+        },
+    ],
+    VOTE_REPLY_OPTIONS: [
+        {
+            label: "Only Keyword",
+            value: "onlyKeyword",
+        },
+        {
+            label: "Contains Keyword",
+            value: "containsKeyword",
+        },
+    ],
+    IGNORE_OPTIONS: [
+        {
+            label: "Ignore Text Posts",
+            value: "ignoreTextPosts",
+        },
+        {
+            label: "Ignore Link Posts",
+            value: "ignoreLinkPosts",
+        },
+        {
+            label: "Ignore Moderators",
+            value: "ignoreModerators",
+        },
+        {
+            label: "Ignore Contributors",
+            value: "ignoreContributors",
+        },
+        {
+            label: "Ignore Admins",
+            value: "ignoreAdmins",
+        },
     ],
 };
