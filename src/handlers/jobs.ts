@@ -1,5 +1,5 @@
 import {Context, ScheduledJobEvent} from "@devvit/public-api";
 
-export async function someRecurringTask (event: ScheduledJobEvent, context: Context) {
-    console.log(`someRecurringTask job ran at ${new Date().toISOString()}\nevent:\n${JSON.stringify(event)}\ncontext:\n${JSON.stringify(context)}`);
+export async function checkVotesJob (event: ScheduledJobEvent, context: Context) {
+    console.log(`checkVotesJob ran at ${new Date().toISOString()}\nevent:\n${JSON.stringify(event)}\ncontext:\n${JSON.stringify(context)}`);
 }
